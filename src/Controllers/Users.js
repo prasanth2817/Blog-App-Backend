@@ -12,7 +12,6 @@ const createUser = async (req, res) => {
       return res.status(400).send({ message: `User ${email} already exists` });
     }
 
-    // Create the new user if not found
     const hashedPassword = await Auth.hashPassword(password);
     const newUser = await UserModel.create({
       email: email.toLowerCase(),
@@ -65,8 +64,7 @@ const forgotPassword = async (req, res) => {
     );
     if (user) {
       const token = await Auth.createToken({
-        firstName: user.firstName,
-        lastName: user.lastName,
+        name: user.name,
         email: user.email,
         id: user._id,
       });
@@ -74,8 +72,8 @@ const forgotPassword = async (req, res) => {
       const emailContent = {
         to: user.email,
         subject: "Reset Password Request",
-        text: `Dear ${user.firstName},\n\nWe received a request to reset your password. Click the link below to reset your password:\n\n${resetUrl}`,
-        html: `<p>Dear ${user.firstName},</p><p>We received a request to reset your password. Click the link below to reset your password:</p><p><a href="${resetUrl}">${resetUrl}</a></p>`,
+        text: `Dear ${user.name},\n\nWe received a request to reset your password. Click the link below to reset your password:\n\n${resetUrl}`,
+        html: `<p>Dear ${user.name},</p><p>We received a request to reset your password. Click the link below to reset your password:</p><p><a href="${resetUrl}">${resetUrl}</a></p>`,
       };
       await emailService.sendMail(emailContent);
 

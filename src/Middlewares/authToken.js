@@ -1,4 +1,4 @@
-import { decodeToken } from "../Config/Auth.js";
+import Auth from "../Config/Auth.js";
 import UserModel from "../Models/Users.js";
 
 const isLoggedIn = async (req, res, next) => {
@@ -9,7 +9,7 @@ const isLoggedIn = async (req, res, next) => {
       return res.status(401).send({ message: "No token found" });
     }
 
-    const payload = await decodeToken(token);
+    const payload = await Auth.decodeToken(token);
 
     if (!payload?.id) {
       return res.status(401).send({ message: "Invalid token" });

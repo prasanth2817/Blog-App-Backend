@@ -1,12 +1,12 @@
 import express from "express";
 import BlogController from "../Controllers/Blogs.js";
-import Auth from "../Middlewares/authToken.js";
+import isLoggedIn from "../Middlewares/authToken.js";
 
 const router = express.Router();
 
-router.get("/", Auth.isLoggedIn, BlogController.getBlogs);
-router.post("/", Auth.isLoggedIn, BlogController.createBlogs);
-router.put("/:id", Auth.isLoggedIn, BlogController.editBlogs);
-router.delete("/:id", Auth.isLoggedIn, BlogController.deleteBlogs);
+router.get("/", isLoggedIn, BlogController.getBlogs);
+router.post("/", isLoggedIn, BlogController.createBlog);
+router.put("/:id", isLoggedIn, BlogController.updateBlog);
+router.delete("/:id", isLoggedIn, BlogController.deleteBlog);
 
 export default router;
