@@ -40,6 +40,10 @@ const getBlogs = async (req, res) => {
       .populate("author", "name email");
 
     res.status(200).send({ blogs });
+
+    if (blogs.length === 0) {
+      return res.status(404).json({ message: "No blogs found." });
+    }
   } catch (error) {
     console.error("Error fetching blogs:", error);
     res
