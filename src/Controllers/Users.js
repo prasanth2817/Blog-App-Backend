@@ -3,7 +3,7 @@ import Auth from "../Config/Auth.js";
 
 const createUser = async (req, res) => {
   try {
-    const { email, password, name } = req.body;
+    const { name, email, password } = req.body;
     const existingUser = await UserModel.findOne({
       email: email.toLowerCase(),
     });

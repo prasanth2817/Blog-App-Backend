@@ -52,9 +52,9 @@ const getBlogsByUser = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const blogs = await BlogModel.find({ userId })
+    const blogs = await BlogModel.find({ author: userId })
       .sort({ createdAt: -1 })
-      .populate("userId", "name email");
+      .populate("author", "name email");
 
     res.status(200).send({ blogs });
   } catch (error) {
