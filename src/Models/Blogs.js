@@ -8,11 +8,7 @@ const BlogSchema = new mongoose.Schema(
       enum: ["Career", "Finance", "Travel", "Technology", "Health", "Other"],
       required: [true, "category is required"],
     },
-    author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
+    author: { type: String, required: [true, "author is required"] },
     content: {
       type: String,
       required: [true, "content is required"],
@@ -29,7 +25,7 @@ const BlogSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    Collection: "Blogs",
+    collection: "Blogs",
     versionKey: false,
   }
 );
